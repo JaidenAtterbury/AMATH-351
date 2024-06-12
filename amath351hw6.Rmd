@@ -1,0 +1,116 @@
+---
+title: "AMATH 351 Homework 6: Mechanical Vibrations"
+author: "Jaiden Atterbury"
+date: "05-13-2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Underdamped oscillator under periodic external forcing.** Let us consider the underdamped oscillator under a periodic force $F(t) = F_0cos(\omega t)$ with amplitude $F_0$ and period $\omega$:
+\begin{align}
+my''+cy'+ky &= F_0cos(\omega t), \quad \text{(with $c^2 < 4mk$)}
+\end{align}
+
+1. Find the general solution of the corresponding homogeneous ODE.
+
+If $my''+cy'+ky = F_0cos(\omega t)$ is the ODE at hand, then the corresponding homogeneous ODE is thus $my''+cy'+ky = 0$. To solve this we will first find its corresponding characteristic equation which is $mr^2+cr+k = 0$. Since we are in the case that $c^2 < 4mk$, it turns out that the discriminant is less than zero, and hence we have two complex conjugate roots. These roots are of the form $r_{1,2} = \frac{-c \pm i\sqrt{4mk-c^2}}{2m} = \frac{-c}{2m} \pm i \frac{\sqrt{4mk-c^2}}{2m}$. Hence the two fundamental solutions are $y_1(t) = e^{\frac{-c}{2m}t} \cos\left(\frac{\sqrt{4mk-c^2}}{2m}t\right)$ and $y_2(t) = e^{\frac{-c}{2m}t} \sin\left(\frac{\sqrt{4mk-c^2}}{2m}t\right)$. Thus it follows that the general solution of the corresponding homogeneous solution is thus $c_1\cdot e^{\frac{-c}{2m}t} \cos\left(\frac{\sqrt{4mk-c^2}}{2m}t\right) + c_2\cdot e^{\frac{-c}{2m}t} \sin\left(\frac{\sqrt{4mk-c^2}}{2m}t\right)$.
+
+2. By using the method of undetermined coefficients, see that one particular solution of ODE (1) is
+\begin{align}
+\psi_p(t) &= \frac{F_0}{(k-\omega^2m)^2+\omega^2c^2}[\omega c\sin(\omega t)+(k-\omega^2m)\cos(\omega t)].
+\end{align}
+
+Since our ODE at hand is $my''+cy'+ky = F_0cos(\omega t$, it can be seen that the external forcing function is $F_0cos(\omega t)$. Since our external forcing function is $F_0cos(\omega t)$, it follows that the form of our particular solution is $\psi_p(t) = A\cos(\omega t) + B\sin(\omega t$. With the form of a particular solution identifies, we must take the first and second derivative of our particular solution then plug it back into our ODE and solve for $A$ and $B$.
+
+The first derivative of the particular solution form is $\psi'(t) = -A\omega \sin(\omega t) + B\omega\cos(\omega t)$, and the second derivative of the particular solution is $\psi''(t) = -A\omega^2 \cos(\omega t) - B\omega^2\sin(\omega t)$. Plugging this back into the ODE we obtain: $-Am\omega^2\cos(\omega t)-Bm\omega^2\sin(\omega t) -Ac\omega\sin(\omega t) + Bc\omega\cos(\omega t)+Ak\cos(\omega t) + Bk\sin(\omega t) = F_0cos(\omega t)$. This simplifies to, $(-Am\omega^2+Bc\omega+Ak)\cos(\omega t)+(-Bm\omega^2-Ac\omega+Bk)\sin(\omega t)=F_0cos(\omega t)$. In order for this to hold for all $t$ we must find the A and B that simultaneously solves the following equations: $-Am\omega^2+Bc\omega+Ak = F_0$ and $-Bm\omega^2-Ac\omega+Bk = 0$.
+
+These two equations simplify to $(k-m\omega^2)A + c\omega B = F_0$ and $-c\omega A + (k-m\omega^2)B = 0$. This implies that $c\omega A = (k-m\omega^2)B$ and hence $B = \frac{c\omega}{k-m\omega^2}A$. Plugging this into the other equation we obtain $(k-m\omega^2)A + \frac{c^2\omega^2}{k-m\omega^2}A = F_0$ which simplifies to $\frac{(k-m\omega^2)^2+c^2\omega^2}{k-m\omega^2}A = F_0$. Hence solving for A we obtain $A = \frac{F_0(k-m\omega^2)}{(k-m\omega^2)^2+c^2\omega^2}$. Therefore this back into our expression for $B$ we obtain: $B = \frac{c\omega}{k-m\omega^2} \cdot \frac{F_0(k-m\omega^2)}{(k-m\omega^2)^2+c^2\omega^2} = \frac{F_0c\omega}{(k-m\omega^2)^2+c^2\omega^2}$. Hence the particular solution is:
+\begin{align*}
+\psi_p(t) &= \frac{F_0(k-m\omega^2)}{(k-m\omega^2)^2+c^2\omega^2}\cos(\omega t) + \frac{F_0c\omega}{(k-m\omega^2)^2+c^2\omega^2} \sin(\omega t) \\
+&= \frac{F_0}{(k-\omega^2m)^2+\omega^2c^2}[\omega c\sin(\omega t)+(k-\omega^2m)\cos(\omega t)]
+\end{align*}
+
+3. By introducing
+$$\sin(\phi) := \frac{\omega c}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}}, \ \cos(\phi):= \frac{k-\omega^2m}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}}$$
+and employing the trigonometric identity
+$$cos(a-b)=cos(a)cos(b)+sin(a)+sin(b)$$
+see that solution (2) is expressed equivalently as
+\begin{align}
+\psi_p(t) = \frac{F_0}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}}\cos(\omega t-\phi)
+\end{align}
+with $\phi = \arctan(\omega c/(k-\omega^2m))$.
+
+To solve this problem, we will rely on turning one form of the particular solution, $y=A\cos(\omega t)+B\sin(\omega t)$, into another form, $y=R\cos(\omega t-\phi)$, using the following identity: $y=R\cos(\omega t-\phi)=R\cos(\phi)\cos(\omega t)+\sin(\phi)+\sin(\omega t)$. Setting the above identity equal to  $y=A\cos(\omega t)+B\sin(\omega t)$, we conclude that $A = R\cos(\phi)$, and $B=R\sin(\phi)$. From these relationships we can conclude that $R^2=A^2+B^2\implies R=\sqrt{A^2+B^2}$.
+
+Hence, if we remember that $A=\frac{F_0(k-m\omega^2)}{(k-m\omega^2)^2+c^2\omega^2}$ and $B=\frac{F_0c\omega}{(k-m\omega^2)^2+c^2\omega^2}$, and if we introduce $\sin(\phi) := \frac{\omega c}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}}$ and $\cos(\phi):= \frac{k-\omega^2m}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}}$, then we obtain the following system of equations: $\frac{F_0c\omega}{(k-m\omega^2)^2+c^2\omega^2}=R\frac{\omega c}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}}$ and $\frac{F_0(k-m\omega^2)}{(k-m\omega^2)^2+c^2\omega^2}=R\frac{k-\omega^2m}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}}$
+
+Hence by isolation $R$ in both equations we see that both equations lead to the same result. Namely, $R = \frac{F_0\sqrt{(k-\omega^2m)^2+\omega^2c^2}}{(k-m\omega^2)^2+c^2\omega^2}$. However, notice that $(k-m\omega^2)^2+c^2\omega^2$ is actually the same as $((k-m\omega^2)^2+c^2\omega^2)^1$ and $\sqrt{(k-\omega^2m)^2+\omega^2c^2} = ((k-\omega^2m)^2+\omega^2c^2)^{1/2}$. Hence we can see that $R = \frac{F_0}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}}$. Lastly, if we see that $\frac{\sin(\phi)}{\cos(\phi)} = \frac{\frac{\omega c}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}}}{\frac{k-\omega^2m}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}}} \implies \tan(\phi) = \frac{\omega c}{k-\omega^2m} \implies \phi = \arctan\left(\frac{\omega c}{k-\omega^2m}\right)$. Thus, plugging these into the identified from from above we obtain the following solution:
+\begin{align*}
+\psi_p(t) &= \frac{F_0}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}}\cos(\omega t-\phi)
+\end{align*}
+
+where $\phi = \arctan\left(\frac{\omega c}{k-\omega^2m}\right)$.
+
+4.  Write down the general solution of ODE (1). See that, in the long time limit $t \to +\infty$, the general solution of ODE (1) coincides with its particular solution (3).
+
+As has been shown in problems 1 and 2, the general solution of the ODE $my''+cy'+ky = F_0cos(\omega t)$ is $y(t) = c_1\cdot e^{\frac{-c}{2m}t} \cos\left(\frac{\sqrt{4mk-c^2}}{2m}t\right) + c_2\cdot e^{\frac{-c}{2m}t} \sin\left(\frac{\sqrt{4mk-c^2}}{2m}t\right) + \frac{F_0}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}}\cos(\omega t-\phi)$. Thus to see that in the long time limit $t \to +\infty$, the general solution of ODE (1) coincides with its particular solution (3), we must take the limit of the general solution as $t$ approaches infinity. We will start off by taking the limit of the homogeneous solution as $t$ approaches infinity.$\lim_{t\to\infty} e^{\frac{-c}{2m}t}\left[c_1\cos\left(\frac{\sqrt{4mk-c^2}}{2m}t\right) + c_2\sin\left(\frac{\sqrt{4mk-c^2}}{2m}t\right)\right] = \lim_{t\to\infty} e^{\frac{-c}{2m}t}c_1\cos\left(\frac{\sqrt{4mk-c^2}}{2m}t\right)+\lim_{t\to\infty}e^{\frac{-c}{2m}t}c_2\sin\left(\frac{\sqrt{4mk-c^2}}{2m}t\right)$. Hence we must calculate both of those limits separately. However, both of those are fairly easy to solve using the squeeze theorem.
+
+**Finding $\bf{\lim_{t\to\infty}e^{\frac{-c}{2m}t}c_1\cos\left(\frac{\sqrt{4mk-c^2}}{2m}t\right)}$:** $\\$
+As we know $-c_1 \leq c_1\cos(\omega t) \leq c_1$, hence since $e^{\frac{-c}{2m}t} \neq 0$, it follows that $-c_1e^{\frac{-c}{2m}t} \leq c_1e^{\frac{-c}{2m}t}\cos(\omega t) \leq c_1e^{\frac{-c}{2m}t}$. Since we know that $\lim_{t\to\infty}\:-c_1e^{\frac{-c}{2m}t} = 0$ and $\lim_{t\to\infty}\:c_1e^{\frac{-c}{2m}t} = 0$, by the squeeze theorem $\lim_{t\to\infty}\:c_1e^{\frac{-c}{2m}t}\cos(\omega t) = 0$.
+
+**Finding $\bf{\lim_{t\to\infty}e^{\frac{-c}{2m}t}c_2\sin\left(\frac{\sqrt{4mk-c^2}}{2m}t\right)}$:** $\\$
+Similarly, as we know $-c_2 \leq c_2\sin(\omega t) \leq c_2$, hence since $e^{\frac{-c}{2m}t} \neq 0$, it follows that $-c_2e^{\frac{-c}{2m}t} \leq c_2e^{\frac{-c}{2m}t}\sin(\omega t) \leq c_2e^{\frac{-c}{2m}t}$. Since we know that $\lim_{t\to\infty}\:-c_2e^{\frac{-c}{2m}t} = 0$ and $\lim_{t\to\infty}\:c_2e^{\frac{-c}{2m}t} = 0$, by the squeeze theorem $\lim_{t\to\infty}\:c_2e^{\frac{-c}{2m}t}\sin(\omega t) = 0$.
+
+Thus, as $t \to \infty$, the homogeneous solution approaches zero. Furthermore, since $\lim_{t\to\infty}\:\frac{F_0}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}}\cos(\omega t-\phi) = \text{DNE}$ which is non-zero, we can see that in the long time limit $t \to +\infty$, the general solution of ODE (1) coincides with its particular solution (3).
+
+*Thus, we have derived that,* in the steady-state (i.e for sufficiently large times) the movement of oscillator (1) is:
+
+  - periodic with the *same period* $\omega$ as the external forcing $F(t)$, and amplitude:
+  
+\begin{align}
+A &= \frac{F_0}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}}
+\end{align}
+
+  - has phase difference $\phi$ with forcing $F(t)$.
+
+5. By using the first derivative test, see that the amplitude $A$ is maximized when the period $\omega$ of the forcing is
+\begin{align}
+\omega_r &= \omega_0\sqrt{1-\frac{c^2}{2mk}}, \ \text{with $w_0 = \sqrt{\frac{k}{m}}$}
+\end{align}
+which is called the *resonant frequency*. $\omega_0$ is the natural frequency of the corresponding unhampered oscillator.
+
+Note that oscillators can only resonate if they are significantly underdamped, i.e. $c^2<2mk$; only in this case resonant frequency $\omega_r$ is real and non-zero.
+
+In order to find the maximum of $A$ we must take the derivative of $A$ with respect to $\omega$ and set it to zero. Usually we'd have to conduct the second derivative test to prove that the value of $\omega$ is in fact a maximum but we will skip that.
+\begin{align*}
+A &= \frac{F_0}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}} \\
+\frac{dA}{d\omega} &= \frac{d}{d\omega} \left(\frac{F_0}{\sqrt{(k-\omega^2m)^2+\omega^2c^2}}\right) \\
+&= \frac{\frac{d}{d\omega} F_0 \cdot (\sqrt{(k-\omega^2m)^2+\omega^2c^2}) - F_0 \cdot \frac{d}{d\omega} (\sqrt{(k-\omega^2m)^2+\omega^2c^2})}{(k-\omega^2m)^2+\omega^2c^2} \\
+&= \frac{-F_0 \frac{4\omega m(k-\omega^2m)-2\omega c^2}{2\sqrt{(k-\omega^2m)^2+\omega^2c^2}}}{(k-\omega^2m)^2+\omega^2c^2} \\
+&= \frac{-F_0(4\omega m(k-\omega^2m)-2\omega c^2)}{((k-\omega^2m)^2+\omega^2c^2)^{3/2}}
+\end{align*}
+
+Setting this equal to zero and solving for $\omega$ we obtain the following
+\begin{align*}
+0 &= \frac{-F_0(4\omega m(k-\omega^2m)-2\omega c^2)}{((k-\omega^2m)^2+\omega^2c^2)^{3/2}} \\
+&= 4\omega m(k-\omega^2m)-2\omega c^2 \\
+&= 2\omega m(k-\omega^2m)-\omega c^2 \\
+&= 2\omega mk - 2\omega^3m^2-\omega c^2 \\
+&= \omega (2mk-2\omega^2m^2-c^2)
+\end{align*}
+
+Hence $\omega = 0$ or $2mk-2\omega^2m^2-c^2 = 0$. Solving for $\omega$ in the second equation gives us the following
+\begin{align*}
+0 &= 2mk-2\omega^2m^2-c^2 \\
+2\omega^2m^2 &= 2mk-c^2 \\
+\omega^2 &= \frac{2mk}{2m^2}-\frac{c^2}{2m^2} \\
+&= \frac{k}{m} - \frac{c^2}{2m^2} \\
+&= \frac{k}{m}(1 - \frac{c^2}{2km^2}) \\
+\omega &= \pm \sqrt{\frac{k}{m}} \sqrt{1 - \frac{c^2}{2km^2}} \\
+&= \pm \omega_0 \sqrt{1 - \frac{c^2}{2km^2}}
+\end{align*}
+
+Thus our three critical points are $\omega = \omega_0 \sqrt{1 - \frac{c^2}{2km^2}}$, $\omega = -\omega_0 \sqrt{1 - \frac{c^2}{2km^2}}$, and $\omega = 0$. After a long second derivative test it can be shown that $A$ is maximized when the period $\omega$ of the forcing is $\omega_r = \omega_0\sqrt{1-\frac{c^2}{2mk}}, \ \text{with} \ w_0 = \sqrt{\frac{k}{m}}$.

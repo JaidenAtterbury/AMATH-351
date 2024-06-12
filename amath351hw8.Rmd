@@ -1,0 +1,189 @@
+---
+title: "AMATH 351 Homework 8: Laplace Transform"
+author: "Jaiden Atterbury"
+date: "2023-05-21"
+header-includes:
+    - \usepackage{amsmath}
+    - \usepackage{amsthm}
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Exercise 1: Calculation of Laplace transform.** By using the definition of Laplace transform, prove that the Laplace transforms of hyperbolic cosine and sine are
+$$\mathcal{L}\left[\cosh(at)\right]=\frac{s}{s^2-a^2}, \quad \mathcal{L}\left[\sinh(at)\right]=\frac{a}{s^2-a^2}$$
+$\underline{\text{Hint}}$: Perform integration by parts twice as we did for the Laplace transforms of $\cos(\omega t)$ and $\sin(\omega t)$. Note that $(\cosh(at))'=\sinh(at)$, $(\sinh(at))'=\cosh(at)$, and $\cosh(0)=1$, $\sinh(0)=0$.
+
+**Laplace transform of $\bf{\cosh(at)}$:** $\\$
+To find the Laplace transform of $\cosh(at)$, we will make use of two facts; the first of those facts being that $\cosh(at)=\frac{1}{2}(e^{at}+e^{-at})$, and the second of those facts being that $\mathcal{L}\left[f(t)\right]=\int\limits^{\infty}_{0}f(t)e^{-st}dt$. Using both of these facts we will now solve the following integral
+\begin{align*}
+\mathcal{L}\left[\cosh(at)\right] &= \int\limits^{\infty}_{0}\cosh(at)e^{-st}dt \\
+&= \int\limits^{\infty}_{0}\frac{1}{2}(e^{at}+e^{-at})e^{-st}dt \\
+&= \frac{1}{2}\int\limits^{\infty}_{0}e^{at-st}dt+\frac{1}{2}\int\limits^{\infty}_{0}e^{-at-st}dt \\
+&= \frac{1}{2}\int\limits^{\infty}_{0}e^{(-s+a)t}dt+\frac{1}{2}\int\limits^{\infty}_{0}e^{(-s-a)t}dt \\
+&= \frac{1}{2}\left[\frac{e^{(-s+a)t}}{-s+a}\right]^{\infty}_{0}+\frac{1}{2}\left[\frac{e^{(-s-a)t}}{-s-a}\right]^{\infty}_{0} \\
+&= \frac{-1}{2}\cdot\frac{1}{-s+a}-\frac{1}{2}\cdot\frac{1}{-s-a} \\
+&= \frac{-1}{2}\left(\frac{-s-a-s+a}{(-s+a)(-s-a)}\right) \\
+&= \frac{-1}{2}\left(\frac{-2s}{s^2-a^2}\right) \\
+&= \frac{s}{s^2-a^2}
+\end{align*}
+
+Thus as shown above, the Laplace transform of $\cosh(at)$ is $\frac{s}{s^2-a^2}$.
+
+**Laplace transform of $\bf{\sinh(at)}$:** $\\$
+To find the Laplace transform of $\cosh(at)$, we will make use of two facts; the first of those facts being that $\sinh(at)=\frac{1}{2}(e^{at}-e^{-at})$, and the second of those facts being that $\mathcal{L}\left[f(t)\right]=\int\limits^{\infty}_{0}f(t)e^{-st}dt$. Using both of these facts we will now solve the following integral
+\begin{align*}
+\mathcal{L}\left[\cosh(at)\right] &= \int\limits^{\infty}_{0}\sinh(at)e^{-st}dt \\
+&= \int\limits^{\infty}_{0}\frac{1}{2}(e^{at}-e^{-at})e^{-st}dt \\
+&= \frac{1}{2}\int\limits^{\infty}_{0}e^{at-st}dt-\frac{1}{2}\int\limits^{\infty}_{0}e^{-at-st}dt \\
+&= \frac{1}{2}\int\limits^{\infty}_{0}e^{(-s+a)t}dt-\frac{1}{2}\int\limits^{\infty}_{0}e^{(-s-a)t}dt \\
+&= \frac{1}{2}\left[\frac{e^{(-s+a)t}}{-s+a}\right]^{\infty}_{0}-\frac{1}{2}\left[\frac{e^{(-s-a)t}}{-s-a}\right]^{\infty}_{0} \\
+&= \frac{-1}{2}\cdot\frac{1}{-s+a}+\frac{1}{2}\cdot\frac{1}{-s-a} \\
+&= \frac{-1}{2}\left(\frac{-s-a+s-a}{(-s+a)(-s-a)}\right) \\
+&= \frac{-1}{2}\left(\frac{-2a}{s^2-a^2}\right) \\
+&= \frac{a}{s^2-a^2}
+\end{align*}
+
+Thus as shown above, the Laplace transform of $\sinh(at)$ is $\frac{a}{s^2-a^2}$.
+
+**Exercise 2: Calculation of inverse Laplace transform.** Find the inverse Laplace transform of the following functions
+
+1. $\frac{4}{s(s+3)}$
+
+Let $Y(s)=\frac{4}{s(s+3)}$. Using the partial fractions decomposition of the previous rational function we can see that $\frac{4}{s(s+3)}=\frac{A}{s}+\frac{B}{s+3}$. Clearing the denominators we get the result $4=A(s+3)+Bs \implies 4=As+3A+Bs$. Matching the coefficients of the powers of $s$ on both sides of the equation leads us to solving the following series of equations: $A+B=0$ and $3A=4$. We can easily solve this system by noticing that $A=\frac{4}{3} \implies B=\frac{-4}{3}$. Plugging in our values of $A$ and $B$ into the equation of $Y(s)$ we obtain $Y(s)=\frac{4}{3}\cdot\frac{1}{s}-\frac{4}{3}\cdot\frac{1}{s+3}$. Taking the inverse Laplace transform of both sides we obtain $\mathcal{L}^{-1}\left[Y(s)\right] = \frac{4}{3}\mathcal{L}^{-1}\left[\frac{1}{s}\right] - \frac{4}{3}\mathcal{L}^{-1}\left[\frac{1}{s+3}\right] = \frac{4}{3}-\frac{4}{3}e^{-3t}$ Hence we can see that the inverse Laplace transform of $Y(s)=\frac{4}{s(s+3)}$ is $y(t)=\frac{4}{3}-\frac{4}{3}e^{-3t}$.
+
+2. $\frac{2}{3s+5}$
+
+Let $Y(s)=\frac{2}{3s+5}=\frac{2}{3}\cdot\frac{1}{s+\frac{5}{3}}$. Taking the inverse Laplace transform of both sides we obtain $\mathcal{L}^{-1}\left[Y(s)\right] = \frac{2}{3}\mathcal{L}^{-1}\left[\frac{1}{s+\frac{5}{3}}\right]=\frac{2}{3}e^{-\frac{5}{3}t}$. Hence we can see that the inverse Laplace transform of $Y(s)=\frac{2}{3s+5}$ is $y(t)=\frac{2}{3}e^{-\frac{5}{3}t}$.
+
+3. $\frac{s+3}{s^2+2s+2}$
+
+Let $Y(s)=\frac{s+3}{s^2+2s+2}=\frac{s+1+2}{(s+1)^2+1}=\frac{s+1}{(s+1)^2+1}+\frac{1}{(s+1)^2+1}$. Taking the inverse Laplace transform of both sides we obtain $\mathcal{L}^{-1}\left[Y(s)\right] = \mathcal{L}^{-1}\left[\frac{s+1}{(s+1)^2+1}\right] + 2\mathcal{L}^{-1}\left[\frac{1}{(s+1)^2+1}\right] = e^{-t}\cos(t)+2e^{-t}\sin(t)$. Hence we can see that the inverse Laplace transform of $Y(s)=\frac{s+3}{s^2+2s+2}$ is $y(t)=e^{-t}\cos(t)+2e^{-t}\sin(t)$.
+
+4. $\frac{2s+1}{(s-1)(s-2)}$
+
+Let $Y(s)=\frac{2s+1}{(s-1)(s-2)}$. Using the partial fractions decomposition of the previous rational function we can see that $\frac{2s+1}{(s-1)(s-2)}=\frac{A}{s-1}+\frac{B}{s-2}$. Clearing the denominators we get the result $2s+1=A(s-2)+B(s-1) \implies 2s+1 = As-2A+Bs-B$. Matching the coefficients of the powers of $s$ on both sides of the equation leads us to solving the following series of equations: $A+B=2$ and $-2A-B=1$. Isolating $B$ in the top equation we obtain $B=2-A$, plugging this into the bottom equation we see $-2A-2+A=1\implies A=-3$ and hence $B=5$. Plugging in our values of $A$ and $B$ into the equation of $Y(s)$ we obtain $Y(s)=-3\cdot\frac{1}{s-1}+5\cdot\frac{1}{s-2}$. Taking the inverse Laplace transform of both sides we obtain
+$\mathcal{L}^{-1}\left[Y(s)\right]=-3\mathcal{L}^{-1}\left[\frac{1}{s-1}\right]+5\mathcal{L}^{-1}\left[\frac{1}{s-2}\right]=-3e^t+5e^{2t}$. Hence we can see that the inverse Laplace transform of $Y(s)=\frac{2s+1}{(s-1)(s-2)}$ is $y(t)=-3e^t+5e^{2t}$.
+
+**Exercise 3: First-order ODEs.** Using Laplace transform, find the solution to the IVPS:
+
+1. $y'=-y+e^{-2t}, \ \  y(0)=1,$
+
+Let $\mathcal{L}\left[y(t)\right]=Y(s)$. We will start off by taking the Laplace transform of both sides of the ODE
+\begin{align*}
+\mathcal{L}\left[y'\right] &= \mathcal{L}\left[y\right] + \mathcal{L}\left[e^{-2t}\right] \\ sY(s)-y(0) &= -Y(s)\frac{1}{s+2} \\
+sY(s)-1 &= -Y(s)\frac{1}{s+2} \\
+(s+1)Y(s) &= \frac{1}{s+2}+1 \\
+(s+1)Y(s) &= \frac{s+3}{s+2} \\
+Y(s) &= \frac{s+3}{(s+2)(s+1)}
+\end{align*}
+
+Using the partial fractions decomposition of the previous rational function we can see that $\frac{s+3}{(s+2)(s+1)} = \frac{A}{s+1}+\frac{B}{s+2}$. Clearing the denominators we get the result $s+3=A(s+2)+B(s+1) \implies s+3=As+2A+Bs+B$. Matching the coefficients of the powers of $s$ on both sides of the equation leads us to solving the following series of equations: $A+B=1$ and $2A+B=3$. Isolating $B$ in the top equation we obtain $B=1-A$, plugging this into the bottom equation we see $2A+1-A=3 \implies A=2$ and hence $B=-1$. Plugging in our values of $A$ and $B$ into the equation of $Y(s)$ we obtain $Y(s)=2\cdot\frac{1}{s+1}-\frac{1}{s+2}$. Taking the inverse Laplace transform of both sides we obtain
+$\mathcal{L}^{-1}\left[Y(s)\right]=2\mathcal{L}^{-1}\left[\frac{1}{s+1}\right]-\mathcal{L}^{-1}\left[\frac{1}{s+2}\right]=2e^{-t}-e^{-2t}$. Hence we can see that the solution to our ODE is $y(t)=2e^{-t}-e^{-2t}$.
+
+2. $y'=-y+t^2, \ \  y(0)=0,$
+
+Let $\mathcal{L}\left[y(t)\right]=Y(s)$. We will start off by taking the Laplace transform of both sides of the ODE
+\begin{align*}
+\mathcal{L}\left[y'\right] &= -\mathcal{L}\left[y\right] + \mathcal{L}\left[t^2\right] \\ 
+sY(s)-y(0) &= -Y(s)\frac{2}{s^3} \\
+sY(s) &= -Y(s)\frac{2}{s^3} \\
+(s+1)Y(s) &= \frac{2}{s^3} \\
+Y(s) &= \frac{2}{s^3(s+1)}
+\end{align*}
+
+Using the partial fractions decomposition of the previous rational function we can see that $\frac{2}{s^3(s+1)} = \frac{A}{s}+\frac{B}{s^2}+\frac{C}{s^2}+\frac{D}{s+1}$. Clearing the denominators we get the result $2=As^2(s+1)+Bs(s+1)+C(s+1)+Ds^3 \implies 2=As^3+As^2+Bs^2+Bs+Cs+C+Ds^3$. Matching the coefficients of the powers of $s$ on both sides of the equation leads us to solving the following series of equations: $A+D=0$, $A+B=0$, $B+C=0$, and $C=2$. From those equations we can see that $B=-2$, $A=2$, $C=2$, and $D=-2$. Plugging in our values of $A$, $B$, $C$, and $D$ into the equation of $Y(s)$ we obtain $Y(s)=2\cdot\frac{1}{s}-2\cdot\frac{1}{s^2}+\frac{2}{s^3}-2\cdot\frac{1}{s+1}$. Taking the inverse Laplace transform of both sides we obtain
+$\mathcal{L}^{-1}\left[Y(s)\right]=\mathcal{L}^{-1}\left[2\cdot\frac{1}{s}-2\cdot\frac{1}{s^2}+\frac{2}{s^3}-2\cdot\frac{1}{s+1}\right]=2-2t+t^2-2e^{-t}$. Hence we can see that the solution to our ODE is $y(t)=2-2t+t^2-2e^{-t}$.
+
+3. $y'+4y=2+3t, \ \  y(0)=0,$
+
+Let $\mathcal{L}\left[y(t)\right]=Y(s)$. We will start off by taking the Laplace transform of both sides of the ODE
+\begin{align*}
+\mathcal{L}\left[y'\right] + 4\mathcal{L}\left[y\right] &= \mathcal{L}\left[2\right] + 3\mathcal{L}\left[t\right] \\
+sY(s)-y(0)+4Y(s) &= \frac{2}{s}+\frac{3}{s^2} \\
+(s+4)Y(s) &= \frac{2s+3}{s^2} \\
+Y(s) &= \frac{2s+3}{s^2(s+2)}
+\end{align*}
+
+Using the partial fractions decomposition of the previous rational function we can see that $\frac{2s+3}{s^2(s+2)} = \frac{A}{s}+\frac{B}{s^2}+\frac{C}{s+2}$. Clearing the denominators we get the result $2s+3=As(s+4)+B(s+4) +cs^2 \implies 2s+3=As^2+4As+Bs+4B+cs^2$. Matching the coefficients of the powers of $s$ on both sides of the equation leads us to solving the following series of equations: $A+C=0$, $4A+B=2$, and $4B=3$. Hence we can see that $B=\frac{3}{4}$, $A = \frac{5}{16}$, and $C=\frac{-5}{16}$. Plugging in our values of $A$, $B$, and $C$ into the equation of $Y(s)$ we obtain $Y(s)=\frac{5}{16}\cdot\frac{1}{3}+\frac{3}{4}\cdot\frac{1}{s^2}-\frac{5}{16}\frac{1}{s+4}$. Taking the inverse Laplace transform of both sides we obtain
+$\mathcal{L}^{-1}\left[Y(s)\right]=\mathcal{L}^{-1}\left[\frac{5}{16}\cdot\frac{1}{3}+\frac{3}{4}\cdot\frac{1}{s^2}-\frac{5}{16}\frac{1}{s+4}\right]=\frac{5}{16}+\frac{3}{4}t-\frac{5}{16}e^{-4t}$. Hence we can see that the solution to our ODE is $y(t)=\frac{5}{16}+\frac{3}{4}t-\frac{5}{16}e^{-4t}$.
+
+and the general solution of the ODE:
+
+4. $\frac{dy}{dt}=2y+2e^{-3t}$.
+
+$\underline{\text{Hint}}$: For question 4, treat $y(0)$ that appears in the transformed equation as one undetermined coefficient; $y(0)=c$.
+
+Let $\mathcal{L}\left[y(t)\right]=Y(s)$ and $y(0) = c$. We will start off by taking the Laplace transform of both sides of the ODE
+\begin{align*}
+\mathcal{L}\left[y'\right] &= 2\mathcal{L}\left[y\right]+2\mathcal{L}\left[e^{-3t}\right] \\
+sY(s)-y(0) &= 2Y(s)+\frac{2}{s+3} \\
+sY(s)-2Y(s) &= c+\frac{2}{s+3} \\
+(s-2)Y(s) &= \frac{c(s+3)+2}{s+3} \\
+Y(s) &= \frac{cs+3c+2}{(s-2)(s+3)}
+\end{align*}
+
+Using the partial fractions decomposition of the previous rational function we can see that $\frac{cs+3c+2}{(s-2)(s+3)} = \frac{A}{s-2}+\frac{B}{s+3}$. Clearing the denominators we get the result $cs+3c+2=A(s+3)+B(s-2) \implies cs+3c+2=As+3A+Bs-2B$. Matching the coefficients of the powers of $s$ on both sides of the equation leads us to solving the following series of equations: $A+B=c$ and $3A-2B=3c+2$. Isolating $A$ in the top equation we obtain $A=1-B$, plugging this into the bottom equation we see $3c-3B-2B=3c+2 \implies B=\frac{-2}{5}$ and hence $A=c+\frac{2}{5}$. Plugging in our values of $A$ and $B$ into the equation of $Y(s)$ we obtain $Y(s)=(c+\frac{2}{5})\cdot\frac{1}{s-2}-\frac{2}{5}\cdot\frac{1}{s+3}$. Taking the inverse Laplace transform of both sides we obtain
+$\mathcal{L}^{-1}\left[Y(s)\right]=\mathcal{L}^{-1}\left[(c+\frac{2}{5})\cdot\frac{1}{s-2}-\frac{2}{5}\cdot\frac{1}{s+3}\right]=(c+\frac{2}{5})e^{2t}-\frac{2}{5}e^{-3t}$. Hence we can see that the solution to our ODE is $y(t)=(c+\frac{2}{5})e^{2t}-\frac{2}{5}e^{-3t}$.
+
+**Exercise 4: Second-order ODEs.** Using Laplace transform, find the solution to the IVPs:
+
+1. $y''+3y'+2y=0, \ \ y(0)=1, \ \ y'(0)=2,$
+
+Let $\mathcal{L}\left[y(t)\right]=Y(s)$. We will start off by taking the Laplace transform of both sides of the ODE
+\begin{align*}
+\mathcal{L}\left[y''\right] + 3\mathcal{L}\left[y'\right] + 3\mathcal{L}\left[y\right] &= \mathcal{L}\left[0\right] \\
+s^2Y(s)-sy(0)-y'(0)+3sY(s)-3y(0)+2Y(s) &= 0 \\
+(s^2+3s+2)Y(s)-s-2-3 &= 0 \\
+(s^2+3s+2)Y(s) &= s+5 \\
+Y(s) &= \frac{s+5}{s^2+3s+2} \\
+Y(s) &= \frac{s+5}{(s+1)(s+2)}
+\end{align*}
+
+Using the partial fractions decomposition of the previous rational function we can see that $\frac{s+5}{(s+1)(s+2)} = \frac{A}{s+1}+\frac{B}{s+2}$. Clearing the denominators we get the result $s+5=A(s+2)+B(s+1) \implies 2+5=As+2A+Bs+B$. Matching the coefficients of the powers of $s$ on both sides of the equation leads us to solving the following series of equations: $A+B=1$, $2A+B=5$. Isolating $A$ in the top equation we obtain $A=1-B$, plugging this into the bottom equation we see $2-2B+B=5 \implies B=-3$ and hence $A=4$. Plugging in our values of $A$, $B$, and $C$ into the equation of $Y(s)$ we obtain $Y(s)=4\cdot\frac{1}{s+1}-3\cdot\frac{1}{s+2}$. Taking the inverse Laplace transform of both sides we obtain
+$\mathcal{L}^{-1}\left[Y(s)\right]=\mathcal{L}^{-1}\left[4\cdot\frac{1}{s+1}-3\cdot\frac{1}{s+2}\right]=4e^{-t}-3e^{-2t}$. Hence we can see that the solution to our ODE is $y(t)=4e^{-t}-3e^{-2t}$.
+
+2. $y''+y=t, \ \ y(0)=0, \ \ y'(0)=1,$
+
+Let $\mathcal{L}\left[y(t)\right]=Y(s)$. We will start off by taking the Laplace transform of both sides of the ODE
+\begin{align*}
+\mathcal{L}\left[y''\right] + \mathcal{L}\left[y\right] &= \mathcal{L}\left[t\right] \\
+s^2Y(s)-sy(0)-y'(0)+Y(s) &= \frac{1}{s^2} \\
+(s^2+1)Y(s)-1 &= \frac{1}{s^2} \\
+(s^2+1)Y(s) &= \frac{1}{s^2}+1 \\
+(s^2+1)Y(s) &= \frac{s^2+1}{s^2} \\
+Y(s) &= \frac{1}{s^2}
+\end{align*}
+
+Taking the inverse Laplace transform of both sides we obtain $\mathcal{L}^{-1}\left[Y(s)\right]=\mathcal{L}^{-1}\left[\frac{1}{s^2}\right]=t$ Hence we can see that the solution to our ODE is $y(t)=t$.
+
+3. $y''-3y'+2y=4t+e^{3t}, \ \ y(0)=0, \ \ y'(0)=0,$
+
+Let $\mathcal{L}\left[y(t)\right]=Y(s)$. We will start off by taking the Laplace transform of both sides of the ODE
+\begin{align*}
+\mathcal{L}\left[y''\right] - 3\mathcal{L}\left[y'\right] + 2\mathcal{L}\left[y\right] &= 4\mathcal{L}\left[t\right] + 2\mathcal{L}\left[e^{3t}\right] \\
+s^2Y(s)-sy(0)-y'(0)-3sY(s)+3y(0)+2Y(s) &= \frac{4}{s^2}+\frac{1}{s-3} \\
+(s^2-3s+2)Y(s) &= \frac{4(s-3)+s^2}{s^2(s-3)} \\
+Y(s) &= \frac{4(s-3)+s^2}{s^2(s-3)(s^2-3s+2)} \\
+Y(s) &= \frac{(s-2)(s+6)}{s^2(s-3)(s-1)(s-2)} \\
+Y(s) &= \frac{s+6}{s^2(s-1)(s-3)}
+\end{align*}
+
+Using the partial fractions decomposition of the previous rational function we can see that $\frac{s+6}{s^2(s-1)(s-3)} = \frac{A}{s}+\frac{B}{s^2}+\frac{C}{s-1}+\frac{D}{s-3}$. Clearing the denominators we get the result $s+6=As(s-1)(s-3)+B(s-1)(s-3)+Cs^2(s-3)+Ds^2(s-1) \implies s+6=A(s^3-4s^2+3s)+B(s^2-4s+3)+C(s^3-3s^2)+D(s^3-s^2) \implies As^3-4As^2+3As+Bs^2-4Bs+3B+Cs^3-3Cs^2+Ds^3-Ds^2$. Matching the coefficients of the powers of $s$ on both sides of the equation leads us to solving the following series of equations: $A+C+D=0$, $-4A+B-3C-D=0$, $3A-4B=1$, and $3B=6$. Hence we can see that $B=2$ and $A=3$. We now have to solve the following system of equations for $C$ and $D$, $C+D=-3$ and $-3c-D=10$. Isolating $D$ in the first equation we obtain $D=-C-3$, plugging this into the second equation we see $-3C+C+3=10 \implies C=\frac{-7}{2}$ and hence $D=\frac{1}{2}$. Plugging in our values of $A$, $B$, $C$, and $D$ into the equation of $Y(s)$ we obtain $Y(s)=3\cdot\frac{1}{s}+2\cdot\frac{1}{s^2}-\frac{7}{2}\cdot\frac{1}{s-1}+\frac{1}{2}\cdot\frac{1}{s-3}$. Taking the inverse Laplace transform of both sides we obtain
+$\mathcal{L}^{-1}\left[Y(s)\right]=\mathcal{L}^{-1}\left[3\cdot\frac{1}{s}+2\cdot\frac{1}{s^2}-\frac{7}{2}\cdot\frac{1}{s-1}+\frac{1}{2}\cdot\frac{1}{s-3}\right]=3+2t-\frac{7}{2}e^t+\frac{1}{2}e^{3t}$. Hence we can see that the solution to our ODE is $y(t)=3+2t-\frac{7}{2}e^t+\frac{1}{2}e^{3t}$.
+
+4. $y''+4y'+4y=t, \ \ y(0)=0, \ \ y'(0)=0.$
+
+Let $\mathcal{L}\left[y(t)\right]=Y(s)$. We will start off by taking the Laplace transform of both sides of the ODE
+\begin{align*}
+\mathcal{L}\left[y''\right]+4\mathcal{L}\left[y'\right]+4\mathcal{L}\left[y\right] &= \mathcal{L}\left[t\right] \\
+s^2Y(s)-sy(0)-y'(0)+4sY(s)-4y(0)+4Y(s) &= \frac{1}{s^2} \\
+(s^2+4s+4)Y(s) &= \frac{1}{s^2} \\
+Y(s) &= \frac{1}{s^2(s^2+4s+4)} \\
+Y(s) &= \frac{1}{s^2(s+2)^2} \\
+\end{align*}
+
+Using the partial fractions decomposition of the previous rational function we can see that $\frac{1}{s^2(s+2)^2} = \frac{A}{s}+\frac{B}{s^2}+\frac{C}{s+2}+\frac{D}{(s+2)^2}$. Clearing the denominators we get the result $1=As(s+2)^2+B(s+2)^2+Cs^2(s+2)+Ds^2 \implies 1=A(s^3+4s^2+4)+B(s^2+4s+4)+Cs^3+2Cs^2+Ds^2 \implies 1=As^3+4As^2 +4As+Bs^2+4Bs+4B+Cs^3+2Cs^2+Ds^2$. Matching the coefficients of the powers of $s$ on both sides of the equation leads us to solving the following series of equations: $A+C=0$, $4A+B+2C+D=0$, $4A+4B=0$, and $4B=1$. Hence we can see that $B=\frac{1}{4}$ and $A=\frac{-1}{4}$, $C=\frac{1}{4}$, and lastly $D=\frac{1}{4}$. Plugging in our values of $A$, $B$, $C$, and $D$ into the equation of $Y(s)$ we obtain $Y(s)=\frac{-1}{4}\cdot\frac{1}{s}+\frac{1}{4}\cdot\frac{1}{s^2}+\frac{1}{4}\cdot\frac{1}{s+2}+\frac{1}{4}\cdot\frac{1}{(s+2)^2}$. Taking the inverse Laplace transform of both sides we obtain
+$\mathcal{L}^{-1}\left[Y(s)\right]=\mathcal{L}^{-1}\left[\frac{-1}{4}\cdot\frac{1}{s}+\frac{1}{4}\cdot\frac{1}{s^2}+\frac{1}{4}\cdot\frac{1}{s+2}+\frac{1}{4}\cdot\frac{1}{(s+2)^2}\right]=\frac{-1}{4}+\frac{1}{4}t+\frac{1}{4}e^{-2t}+\frac{1}{4}te^{-2t}$. Hence we can see that the solution to our ODE is $y(t)=\frac{-1}{4}+\frac{1}{4}t+\frac{1}{4}e^{-2t}+\frac{1}{4}te^{-2t}$.

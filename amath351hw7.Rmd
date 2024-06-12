@@ -1,0 +1,177 @@
+---
+title: 'AMATH 351 Homework 7: Series solutions of ODEs'
+author: "Jaiden Atterbury"
+date: "05-14-2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Exercise 1: First-order ODEs.** By using the series expansion around zero for the solution $y(x)=\sum_{n=0}^{\infty}a_nx^n$, solve the ODEs:
+
+1. $y'-y=0. \ \underline{\text{Hint:}}$ the solution is $y(x)=a_0\sum\limits^{\infty}_{n=0}\frac{x^n}{n!}=a_0e^x$.
+
+To start we will replace $y'$ and $y$ with their series expansions around zero and simplify if possible.
+\begin{align*}
+0 &= y'-y \\
+&= \sum\limits^{\infty}_{n=0}(n+1)a_{n+1}x^n-\sum\limits^{\infty}_{n=0}a_{n}x^n \\
+&= \sum\limits^{\infty}_{n=0}\left[(n+1)a_{n+1}-a_{n}\right]x^n
+\end{align*}
+
+Hence as shown above, $\sum\limits^{\infty}_{n=0}\left[(n+1)a_{n+1}-a_{n}\right]x^n = 0$, thus in order for this relationship to hold for all values of $x$, $(n+1)a_{n+1}-a_{n}=0 \implies a_{n+1}=\frac{1}{n+1}a_n$. Writing out the first three values of this recursive definition we see that: $a_1 = \frac{1}{2}a_0 = \frac{1}{2!}a_0$, $a_2 = \frac{1}{3}a_1 = \frac{1}{3\cdot2}a_0 = \frac{1}{3!}a_0$, and $a_3 = \frac{1}{4}a_2 = \frac{1}{4\cdot3\cdot2}a_0=\frac{1}{4!}a_0$. Thus in general, we can see that $a_{n}=\frac{1}{n!}a_0$.
+
+Going back to our solution form of $y(x)=\sum\limits_{n=0}^{\infty}a_nx^n$ and plugging in our $a_n$ term we can see that
+\begin{align*}
+y(x) &= \sum\limits_{n=0}^{\infty}\frac{1}{n!}a_0x^n \\
+&= a_0 \sum\limits_{n=0}^{\infty}\frac{x^n}{n!} \\
+&= a_0e^x
+\end{align*}
+
+Hence the general solution to the ODE $y'-y=0$ is $a_0e^x$.
+
+2. $y'=2xy. \ \underline{\text{Hint:}}$ the solution is $y(x)=a_0\sum\limits^{\infty}_{n=0}\frac{x^{2n}}{n!}=a_0e^{x^2}$.
+
+To start we will subtract the $2xy$ term to the left-hand side of the equation and  replace $y'$ and $y$ with their series expansions around zero and simplify if possible.
+\begin{align*}
+0 &= y'-2xy \\
+&= \sum\limits^{\infty}_{n=0}(n+1)a_{n+1}x^n-2x\sum\limits^{\infty}_{n=0}a_{n}x^n \\
+&= \sum\limits^{\infty}_{n=0}(n+1)a_{n+1}x^n-2\sum\limits^{\infty}_{n=0}a_{n}x^{n+1}
+\end{align*}
+
+However, in order to solve this problem more easily, we are going to want to have the same power of $x$ for all series in the ODE. Hence, in the second series we must introduce the change of index $k=n+1$. Hence the series becomes $2\sum\limits^{\infty}_{k=1}a_{k-1}x^{k}$. However since $k$ is just a "dummy" variable we will chance it back to $n$ for convenience. Hence the series becomes $2\sum\limits^{\infty}_{n=1}a_{n-1}x^{n}$. Putting this back into the equation we obtain the following
+\begin{align*}
+0 &= \sum\limits^{\infty}_{n=0}(n+1)a_{n+1}x^n-2\sum\limits^{\infty}_{n=1}a_{n-1}x^{n} \\
+&= a_1 + \sum\limits^{\infty}_{n=1}\left[(n+1)a_{n+1}-2a_{n-1}\right]x^n
+\end{align*}
+
+Hence as shown above, $a_1 + \sum\limits^{\infty}_{n=1}\left[(n+1)a_{n+1}-2a_{n-1}\right]x^n = 0$, thus in order for this relationship to hold for all values of $x$, $a_1=0$ and $(n+1)a_{n+1}-2a_{n-1}=0 \implies a_{n+1}=\frac{2}{n+1}a_{n-1}$. Since this recursive definition steps by 2, we must split finding a closed form solution into two parts, one where $n$ is even, and one where $n$ is odd.
+
+**$\bf{n}$ is even $\bf{\implies n=2k}$:** $\\$
+Writing out the first three values of this recursive definition we see that: $a_2 = \frac{2}{2}a_0 = \frac{1}{1!}a_0$, $a_4 = \frac{1}{2}a_2 = \frac{1}{2\cdot1}a_0 = \frac{1}{2!}a_0$, and $a_6 = \frac{1}{3}a_4 = \frac{1}{3\cdot2\cdot1}a_0=\frac{1}{3!}a_0$. Thus in general, we can see that $a_{2k}=\frac{1}{n!}a_0$.
+
+**$\bf{n}$ is odd $\bf{\implies n=2k}$:** $\\$
+Writing out the first three values of this recursive definition we see that: $a_3 = \frac{2}{3}a_1 = 0$, $a_5 = \frac{2}{5}a_3 = 0$, and $a_7 = \frac{2}{7}a_5 = 0$. Thus in general, we can see that $a_{2k+1}=0$.
+
+Going back to our solution form of $y(x)=\sum\limits_{n=0}^{\infty}a_nx^n$ and plugging in our $a_2k$ and $a_{2k+1}$ terms we can see that
+\begin{align*}
+y(x) &= \sum\limits_{k=0}^{\infty}\frac{1}{k!}a_0x^{2k} \\
+&= a_0 \sum\limits_{k=0}^{\infty}\frac{x^{2k}}{k!} \\
+&= a_0e^{x^2}
+\end{align*}
+
+Hence the general solution to the ODE $y'=2xy$ is $a_0e^{x^2}$.
+
+**Exercise 2: Hyperbolic cosine and sine.** Find the general solution of the ODE
+\begin{align}
+y''-y &= 0,
+\end{align}
+
+by using the series expansion of $y(t)$ around $t_0=0$:
+\begin{align*}
+y(t) &= \sum\limits^{\infty}_{n=0} a_nt^n.
+\end{align*}
+
+In your solution, use the following Maclaurin series for the *hyperbolic cosine*
+\begin{align*}
+\cosh(t) &= \sum\limits^{\infty}_{n=0} \frac{t^{2n}}{(2n)!}
+\end{align*}
+
+and the *hyperbolic sine*
+\begin{align*}
+\sinh(t) &= \sum\limits^{\infty}_{n=0} \frac{t^{2n+1}}{(2n+1)!}
+\end{align*}
+
+To start we will replace $y''$ and $y$ with their series expansions around zero and simplify if possible.
+\begin{align*}
+0 &= y''-y \\
+&= \sum\limits^{\infty}_{n=0}(n+2)(n+1)a_{n+2}t^n-\sum\limits^{\infty}_{n=0}a_{n}t^n \\
+&= \sum\limits^{\infty}_{n=0}\left[(n+2)(n+1)a_{n+2}-a_n\right]t^n
+\end{align*}
+
+Hence as shown above, $\sum\limits^{\infty}_{n=0}\left[(n+2)(n+1)a_{n+2}-a_n\right]t^n = 0$, thus in order for this relationship to hold for all values of $t$, $(n+2)(n+1)a_{n+2}-a_n = 0 \implies \frac{1}{(n+1)(n+1)}a_0$. Since this recursive definition steps by 2, we must split finding a closed form solution into two parts, one where $n$ is even, and one where $n$ is odd.
+
+**$\bf{n}$ is even $\bf{\implies n=2k}$:** $\\$
+Writing out the first three values of this recursive definition we see that: $a_2 = \frac{1}{2\cdot1}a_0 = \frac{1}{2!}a_0$, $a_4 = \frac{1}{4\cdot3}a_2 = \frac{1}{4\cdot2\cdot3\cdot1}a_0 = \frac{1}{4!}a_0$, and $a_6 = \frac{1}{6\cdot5}a_4 = \frac{1}{6\cdot5\cdot4\cdot2\cdot3\cdot1}a_0=\frac{1}{6!}a_0$. Thus in general, we can see that $a_{2k}=\frac{1}{(2k)!}a_0$.
+
+**$\bf{n}$ is odd $\bf{\implies n=2k}$:** $\\$
+Writing out the first three values of this recursive definition we see that: $a_3 = \frac{1}{3\cdot2\cdot1}a_1 = \frac{1}{3!}a_1$, $a_5 = \frac{1}{5\cdot4}a_3 = \frac{1}{5\cdot4\cdot3\cdot2\cdot1!}a_1 = \frac{1}{5!}a_1$, and $a_7 = \frac{1}{7\cdot6}a_5 = \frac{1}{7\cdot6\cdot5\cdot4\cdot3\cdot2\cdot1!}a_1 = \frac{1}{7!}a_1$. Thus in general, we can see that $a_{2k+1}=\frac{1}{(2k+1)!}a_1$.
+
+Going back to our solution form of $y(t)=\sum\limits_{n=0}^{\infty}a_nt^n$ and plugging in our $a_2k$ and $a_{2k+1}$ terms we can see that
+\begin{align*}
+y(t) &= \sum\limits_{k=0}^{\infty}\frac{1}{(2k)!}a_0t^{2k}+\sum\limits_{k=0}^{\infty}\frac{1}{(2k+1)!}a_1t^{2k+1} \\
+&= a_0\sum\limits_{k=0}^{\infty}\frac{1}{(2k)!}t^{2k}+a_1\sum\limits_{k=0}^{\infty}\frac{1}{(2k+1)!}t^{2k+1} \\
+&= a_0\cosh(t)+a_1\sinh(t)
+\end{align*}
+
+Hence the general solution to the ODE $y''-y=0$ is $a_0\cosh(t)+a_1\sinh(t)$.
+
+**Exercise 3:** By using the series expansion around $t_0=0$, find the general solution of the ODE
+\begin{align}
+y''+ty'+y &= 0
+\end{align}
+
+$\underline{\text{Hint:}}$ You should arrive to the closed form formulas for the series coefficients
+$$a_{2k} = \frac{(-1)^k}{2\cdot4\cdot6\dots2k}a_0, \quad a_{2k+1} = \frac{(-1)^k}{3\cdot5\cdot7\dots(2k+1)}a_1.$$
+
+To start we will replace $y''$, $y'$, and $y$ with their series expansions around zero and simplify if possible.
+\begin{align*}
+0 &= y''+ ty' + y \\
+&= \sum\limits^{\infty}_{n=0}(n+2)(n+1)a_{n+2}t^n + t\sum\limits^{\infty}_{n=0}(n+1)a_{n+1}t^n+\sum\limits^{\infty}_{n=0}a_{n}t^n \\
+&= \sum\limits^{\infty}_{n=0}(n+2)(n+1)a_{n+2}t^n + \sum\limits^{\infty}_{n=0}(n+1)a_{n+1}t^{n+1}+\sum\limits^{\infty}_{n=0}a_{n}t^n
+\end{align*}
+
+However, in order to solve this problem more easily, we are going to want to have the same power of $t$ for all series in the ODE. Hence, in the second series we must introduce the change of index $k=n+1$. Hence the series becomes $\sum\limits^{\infty}_{k=1}ka_kt^{k}$. However since $k$ is just a "dummy" variable we will chance it back to $n$ for convenience. Hence the series becomes $\sum\limits^{\infty}_{n=1}na_nt^{n}$. Putting this back into the equation we obtain the following
+\begin{align*}
+0 &= \sum\limits^{\infty}_{n=0}(n+2)(n+1)a_{n+2}t^n \sum\limits^{\infty}_{n=1}na_nt^{n} +\sum\limits^{\infty}_{n=0}a_{n}t^n \\
+&= a_0 + 2a_2 + \sum\limits^{\infty}_{n=1}\left[(n+2)(n+1)a_{n+2}+(n+1)a_{n}\right]t^n
+\end{align*}
+
+Hence as shown above, $a_0 + 2a_2 + \sum\limits^{\infty}_{n=1}\left[(n+2)(n+1)a_{n+2}+(n+1)a_{n}\right]t^n = 0$, thus in order for this relationship to hold for all values of $t$, $a_0+2a_2=0$ and $(n+2)(n+1)a_{n+2}+(n+1)a_{n}=0 \implies a_{n+2}=\frac{-1}{n+2}a_{n}, \ n=1,2,3,\cdots$. However, notice that $a_0 + 2a_2 = 0$ is $(n+2)(n+1)a_{n+2}+(n+1)a_{n}=0$ at $n=0$. Thus we can see that $a_{n+2}=\frac{-1}{n+2}a_{n}, \ n=0,1,2,3,\cdots$. Since this recursive definition steps by 2, we must split finding a closed form solution into two parts, one where $n$ is even, and one where $n$ is odd.
+
+**$\bf{n}$ is even $\bf{\implies n=2k}$:** $\\$
+Writing out the first three values of this recursive definition we see that: $a_2 = \frac{-1}{2}a_0$, $a_4 = \frac{-1}{4}a_2 = \frac{1}{2\cdot4}a_0$, and $a_6 = \frac{-1}{6}a_4 = \frac{-1}{2\cdot4\cdot6}a_0$. Thus in general, we can see that $a_{2k}=\frac{(-1)^k}{2\cdot4\cdot6\dots2k}a_0$.
+
+**$\bf{n}$ is odd $\bf{\implies n=2k}$:** $\\$
+Writing out the first three values of this recursive definition we see that: $a_3 = \frac{-1}{3}a_1$, $a_5 = \frac{-1}{5}a_3 = \frac{1}{3\cdot5}a_1$, and $a_7 = \frac{-1}{7}a_5 = \frac{-1}{3\cdot5\cdot7}a_1$. Thus in general, we can see that $a_{2k+1}=\frac{(-1)^k}{3\cdot5\cdot7\dots(2k+1)}a_1$.
+
+Going back to our solution form of $y(t)=\sum\limits_{n=0}^{\infty}a_nt^n$ and plugging in our $a_2k$ and $a_{2k+1}$ terms we can see that
+\begin{align*}
+y(t) &= \sum\limits_{k=0}^{\infty}\frac{(-1)^k}{2\cdot4\cdot6\dots2k}a_0t^{2k} + \sum\limits_{k=0}^{\infty} \frac{(-1)^k}{3\cdot5\cdot7\dots(2k+1)}a_1 t^{2k+1} \\
+&= a_0 \sum\limits_{k=0}^{\infty}\frac{(-1)^k}{2\cdot4\cdot6\dots2k}t^{2k} + a_1\sum\limits_{k=0}^{\infty} \frac{(-1)^k}{3\cdot5\cdot7\dots(2k+1)}t^{2k+1}
+\end{align*}
+
+Hence the general solution to the ODE $y''+ty'+y=0$ is $a_0 \sum\limits_{k=0}^{\infty}\frac{(-1)^k}{2\cdot4\cdot6\dots2k}t^{2k} + a_1\sum\limits_{k=0}^{\infty} \frac{(-1)^k}{3\cdot5\cdot7\dots(2k+1)}t^{2k+1}$.
+
+**Exercise 4:** By using the series expansion around $t_0=0$, find the general solution of the ODE
+\begin{align}
+y''-xy'+y=0
+\end{align}
+
+$\underline{\text{Hint:}}$ the solution is $y(x)=a_1x+a_0\left[1-\frac{1}{2}x^2-\sum\limits_{k=2}^{\infty}\frac{(2k-3)!!}{(2k)!}x^{2k}\right]$. Double factorial $n!!$ is the product of all integers from 1 to n with the same parity (odd or even) as $n$; e.g. $9!!=9\cdot 7\cdot 5\cdot 3\cdot 1$.  
+
+To start we will replace $y''$, $y'$, and $y$ with their series expansions around zero and simplify if possible.
+\begin{align*}
+0 &= y'-xy'+y \\
+&= \sum\limits^{\infty}_{n=0}(n+2)(n+1)a_{n+2}x^n-x\sum\limits^{\infty}_{n=0}(n+1)a_{n+1}x^n+\sum\limits^{\infty}_{n=0}a_{n}x^n \\
+&= \sum\limits^{\infty}_{n=0}(n+2)(n+1)a_{n+2}x^n-\sum\limits^{\infty}_{n=0}(n+1)a_{n+1}x^{n+1}+\sum\limits^{\infty}_{n=0}a_{n}x^n
+\end{align*}
+
+However, in order to solve this problem more easily, we are going to want to have the same power of $x$ for all series in the ODE. Hence, in the second series we must introduce the change of index $k=n+1$. Hence the series becomes $\sum\limits^{\infty}_{k=1}ka_kx^{k}$. However since $k$ is just a "dummy" variable we will chance it back to $n$ for convenience. Hence the series becomes $\sum\limits^{\infty}_{n=1}na_nx^{n}$. Putting this back into the equation we obtain the following
+\begin{align*}
+0 &= \sum\limits^{\infty}_{n=0}(n+2)(n+1)a_{n+2}x^n-\sum\limits^{\infty}_{n=1}na_nx^{n}+\sum\limits^{\infty}_{n=0}a_{n}x^n
+&= a_0+2a_2+\sum\limits^{\infty}_{n=1}\left[(n+2)(n+1)a_{n+2}+(1-n)a_n\right]x^n
+\end{align*}
+
+Hence as shown above, $a_0+2a_2+\sum\limits^{\infty}_{n=1}\left[(n+2)(n+1)a_{n+2}+(1-n)a_n\right]x^n = 0$, thus in order for this relationship to hold for all values of $x$, $a_0+2a_2=0$ and $(n+2)(n+1)a_{n+2}+(1-n)a_n = 0 \implies a_{n+2}=\frac{-(1-n)}{(n+2)(n+1)}a_{n-1}, \ n=1,2,3,\dots$. However, notice that $a_0 + 2a_2 = 0$ is $(n+2)(n+1)a_{n+2}+(1-n)a_{n}=0$ at $n=0$. Thus we can see that $a_{n+2}=\frac{n-1}{(n+2)(n+1)}a_{n}, \ n=0,1,2,3,\cdots$. Since this recursive definition steps by 2, we must split finding a closed form solution into two parts, one where $n$ is even, and one where $n$ is odd.
+
+**$\bf{n}$ is even $\bf{\implies n=2k}$:** $\\$
+Writing out the first four values of this recursive definition we see that: $a_2 = \frac{-1}{2}a_0 = \frac{-1}{2!}a_0$, $a_4 = \frac{1}{4\cdot3}a_2 = \frac{-1}{4\cdot3\cdot2\cdot1}a_0 = \frac{-1}{4!}a_0$, $a_6 = \frac{3}{6\cdot5}a_4 = \frac{-3}{6\cdot5\cdot4\cdot3\cdot2\cdot1}a_0=\frac{-3}{6!}a_0$, and $a_8 = \frac{5}{8\cdot7} = \frac{-5\cdot3}{8\cdot7\cdot6\cdot5\cdot4\cdot3\cdot2\cdot1} = \frac{-5\cdot3}{8!}a_0$.
+
+**$\bf{n}$ is odd $\bf{\implies n=2k}$:** $\\$
+Writing out the first three values of this recursive definition we see that: $a_3 = 0\cdot a_1 = 0$, $a_5 = \frac{2}{5\cdot4}a_3 = 0$, and $a_7 = \frac{4}{7\cdot6}a_5 = 0$. Thus in general, we can see that $a_{2k+1}=0$.
+
+Thus, if we expand our solution from these above calculations we obtain $a_0+a_1x-\frac{1}{2!}a_0x^2-\frac{1}{4!}a_0x^4-\frac{3}{6!}a_0x^6-\frac{5\cdot3}{8!}a_0x^8 - \frac{7\cdot5\cdot3}{10!}x^{10} - \dots = a_1x+a_0\left(1-\frac{1}{2}x^2-\frac{1}{4!}x^4-\frac{3}{6!}x^6-\frac{5\cdot3}{8!}x^8- \frac{7\cdot5\cdot3}{10!}x^{10} - \dots \right)$. However, notice that this simplifies to $a_1x+a_0\left[1-\frac{1}{2}x^2-\sum\limits_{k=2}^{\infty}\frac{(2k-3)!!}{(2k)!}x^{2k} \right]$.
+
+Hence the general solution to the ODE $y''-xy'+y=0$ is $a_1x+a_0\left[1-\frac{1}{2}x^2-\sum\limits_{k=2}^{\infty}\frac{(2k-3)!!}{(2k)!}x^{2k}\right]$.

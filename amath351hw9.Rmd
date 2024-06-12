@@ -1,0 +1,116 @@
+---
+title: 'AMATH 351 Homework 9: Laplace Transform II'
+author: "Jaiden Atterbury"
+date: "2023-05-27"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Exercise 1: The boxcar function.** Using Laplace transform, solve the IVP
+$$y''+y=g(t), \ y(0)=0, \ y'(0)=1,$$
+where
+\begin{align*} 
+g(t) &= \left \{ 
+\begin{array}{cc}
+                0, \ 0 \leq t < 1 \\
+                1, \ 1 \leq t < 2 \\
+                0, \ \ \ \ \ t \geq 2.
+\end{array} \right.
+\end{align*}
+
+\underline{\text{Hint}}: Function $g(t)$ is zero everywhere, except for the interval $[1,2)$ where it is equal to 1. Due to its shape, $g(t)$ is called the rectangular or boxcar function. It is easy to see that the boxcar function can be expressed as the difference of two Heaviside step functions: $g(t)=u_1(t)-u_2(t)$.
+
+**Solution:** $\\$
+To solve the above IVP, we must first notice that the boxcar function can be rewritten as $g(t)=u_1(t)-u_2(t)$, hence our IVP becomes: $y''+y=u_1(t)-u_2(t), \ y(0)=0, \ y'(0)=1$. Now we will take the Laplace transform of both sides. $\mathcal{L}[y''+y]=\mathcal{L}[u_1(t)-u_2(t)]$. Using the linearity of the Laplace transform, this becomes $\mathcal{L}[y'']+\mathcal{L}[y]=\mathcal{L}[u_1(t)]-\mathcal{L}[u_2(t)]$. Solving these Laplace transforms using Laplace pairs and letting $\mathcal{L}[y(t)]=Y(s)$ we can see that the equation becomes $s^2Y(s)-sy(0)-y'(0)+Y(s)=\frac{e^{-s}}{s}-\frac{e^{-2s}}{s}$. Plugging in our initial conditions and isolating $Y(s)$ on the left hand side we see that the equation becomes $Y(s)=\frac{1}{s^2+1}+\frac{e^{-s}}{s(s^2+1)}-\frac{e^{-2s}}{s(s^2+1)}$. 
+
+In order to take the inverse Laplace transform of both sides we must first use partial fractions decomposition to put the functions on the right hand side into a nicer form. First off, see that we can rewrite the last two functions in the right hand side of the equation (ignoring the exponential terms) as $\frac{1}{s(s^2+1)}=\frac{A}{s}+\frac{Bs+C}{s^2+1}$. After clearing the denominators the equation becomes $1=A(s^2+1)+(Bs+C)s \implies 1=As^2+A+Bs^2+Cs$. Hence we must simultaneously solve the following system of equations: $A+B=0$, $C=0$, and $A=1$. It can easily be seen that the three coefficients that simultaneously solve this system are $A=1$, $B=-1$, and $C=0$.
+
+With this said we can now rewrite our equation for $Y(s)$ as $Y(s)=\frac{1}{s^2+1}+e^{-s}\left(\frac{1}{s}-\frac{s}{s^2+1}\right)-e^{-2s}\left(\frac{1}{s}-\frac{s}{s^2+1}\right)$. Hence taking the inverse Laplace transform of of both sides and using the linearity of the Laplace transform, we obtain the following solution. $\mathcal{L}^{-1}\left[Y(s)\right]=\mathcal{L}^{-1}\left[\frac{1}{s^2+1}+e^{-s}\left(\frac{1}{s}-\frac{s}{s^2+1}\right)-e^{-2s}\left(\frac{1}{s}-\frac{s}{s^2+1}\right)\right]=\sin(t)+u_1(t)(1-\cos(t-1)-u_2(t)(1-\cos(t-2))$
+
+Hence as calculated above the solution to the IVP is $y(t)=\sin(t)+u_1(t)(1-\cos(t-1)-u_2(t)(1-\cos(t-2))$
+
+**Exercise 2: The RL circuit.** We consider the Resistor-Inductor (RL) electrical circuit shown in figure 1. By *Kirchhoffs's voltage law*, and using the *constitutive relations* for the resistor: $V_{R}(t)=I(t)R$, and the inductor: $V_{L(t)}=LdI(t)/dt$, we obtain an ODE for the current $I(t)$ flowing in the circuit:
+$$V_0(t)=V_{R}(t)+V_{L}(t)\implies L\frac{dI(t)}{dt}+RI(t)=V_0(t)$$
+When the switch is open, there is no current in the circuit; that means that we have the initial condition
+$$I(0)=0.$$
+We also consider that after the switch is closed, source voltage decreases exponentially as $V_0(t)=2e^{-t}$ *volts*.
+
+Thus, the IVP for $I(t)$, for the case where the switch closes at $t=4s$, and for $R=1$ *ohm*, $L=1/3$ *henrys*, reads
+\begin{align}
+\frac{1}{3}I'(t)+I(t) &= 2u_4(t)e^{-(t-4)}, \ I(0)=0.
+\end{align}
+
+Solve IVP (1) by using Laplace transform. The SI unit of electric current is the *Ampere*.
+
+**Solution:** $\\$
+To solve this IVP, we will start by taking the Laplace transform of both sides, doing this we obtain $\mathcal{L}\left[\frac{1}{3}I'(t)+I(t)\right]=\mathcal{L}\left[2u_4(t)e^{-(t-4)}\right]$. Using the linearity of the Laplace transform we can simplify the above equation to $\frac{1}{3}\mathcal{L}[I'(t)]+\mathcal{L}[I(t)]=2\mathcal{L}\left[u_4(t)e^{-(t-4)}\right]$. If we let $\mathcal{L}\left[I(t)\right]=Y(s)$ and use Laplace pairs to solve each individual Laplace transform we obtain, $\frac{1}{3}sY(s)-\frac{1}{3}I(0)+Y(s)=2e^{-4s}\mathcal{L}[e^{-t}]$. If we plug in our initial conditions and isolate $Y(s)$ on th left hand side of the equation we obtain the following expression for $Y(s)$: $Y(s)=\frac{2e^{-4s}}{\left(\frac{1}{3}s+1\right)(s+1)}$. Multiplying the top and bottom by 3 we can simplify the equation to $Y(s)=\frac{6e^{-4s}}{\left(s+3\right)(s+1)}$.
+
+In order to take the inverse Laplace transform of both sides we must first use partial fractions decomposition to put the function on the right hand side into a nicer form. First off, see that we can rewrite the function in the right hand side of the equation (ignoring the exponential terms) as $\frac{6}{\left(s+3\right)(s+1)}=\frac{A}{s+3}+\frac{B}{s+1}$. After clearing the denominators the equation becomes $6=A(s+3)+B(s+1) \implies 1=As+3A+Bs+B$. Hence we must simultaneously solve the following system of equations: $A+B=0$ and $3A+b=6$ It can easily be seen that the three coefficients that simultaneously solve this system are $A=3$, $B=-3$.
+
+With this said we can now rewrite our equation for $Y(s)$ as $Y(s)=e^{-4s}\left(\frac{3}{s+1}-\frac{3}{s+3}\right)$. Hence taking the inverse Laplace transform of of both sides and using the linearity of the Laplace transform, we obtain the following solution. $\mathcal{L}^{-1}\left[Y(s)\right]=\mathcal{L}^{-1}\left[e^{-4s}\left(\frac{3}{s+1}-\frac{3}{s+3}\right)\right]=u_4(t)\left(3e^{-(t-4)}-3e^{-3(t-4)}\right)$
+
+Hence as calculated above the solution to IVP (1) is $y(t)=u_4(t)\left(3e^{-(t-4)}-3e^{-3(t-4)}\right)$
+
+**Exercise 3: Calculating inverse Laplace transforms using convolution.** By using convolution, prove that
+
+1. $\mathcal{L}^{-1}\left[\frac{2\omega s}{(s^2+\omega^2)^2}\right]=t\sin(\omega t)$. $\underline{\text{Hint}}$: $\frac{2\omega s}{(s^2+\omega^2)^2}=2\cdot\frac{\omega}{(s^2+\omega^2)^2}\cdot\frac{s}{(s^2+\omega^2)^2}$
+
+To show that $\mathcal{L}^{-1}\left[\frac{2\omega s}{(s^2+\omega^2)^2}\right]=t\sin(\omega t)$, we will use convolutions, the following hint: $\frac{2\omega s}{(s^2+\omega^2)^2}=2\cdot\frac{\omega}{(s^2+\omega^2)^2}\cdot\frac{ s}{(s^2+\omega^2)^2}$, and the following trigonometric identity: $\sin(a)cos(b)=\frac{1}{2}\sin(a+b)+\frac{1}{2}\sin(a-b)$.
+\begin{align*}
+\mathcal{L}^{-1}\left[\frac{2\omega s}{(s^2+\omega^2)^2}\right] &= \mathcal{L}^{-1}\left[2\cdot\frac{\omega}{(s^2+\omega^2)^2}\cdot\frac{s}{(s^2+\omega^2)^2}\right] \\
+&= 2\mathcal{L}^{-1}\left[\frac{\omega}{(s^2+\omega^2)^2}\cdot\frac{s}{(s^2+\omega^2)^2}\right] \\
+&= 2\int\limits^{t}_{0}\mathcal{L}^{-1}\left[\frac{\omega}{(s^2+\omega^2)^2}\right](t-\tau)\cdot\mathcal{L}^{-1}\left[\frac{s}{(s^2+\omega^2)^2}\right](\tau)d\tau \\
+&= 2\int\limits^{t}_{0}\sin(\omega(t-\tau))\cos(\omega\tau)d\tau \\
+&= 2\int\limits^{t}_{0}\frac{1}{2}\sin(\omega(t-\tau)+\omega\tau)d\tau+2\int\limits^{t}_{0}\frac{1}{2}\sin(\omega(t-\tau)-\omega\tau)d\tau \\
+&= \int\limits^{t}_{0}\sin(\omega t)d\tau+\int\limits^{t}_{0}\sin(\omega(t-2\tau))d\tau \\
+\end{align*}
+
+Solving the first integral we obtain $\int\limits^{t}_{0}\sin(\omega t)d\tau=\sin(\omega t)\int\limits^{t}_{0}d\tau=t\sin(\omega t)$. Using the substitution $u=t-2\tau \implies du=-2d\tau$, we can simplify the second integral to $\frac{-1}{2}\int\limits^{-t}_{t}\sin(\omega u)du=\frac{1}{2}\int\limits^{t}_{-t}\sin(\omega u)du$. Using the fact that $\cos(t)=\cos(-t)$, we can solving this second integral and obtain $\frac{-1}{2\omega}[\cos(\omega u)]^{t}_{0}=0$. Hence we have proven that $\mathcal{L}^{-1}\left[\frac{2\omega s}{(s^2+\omega^2)^2}\right]=t\sin(\omega t)$.
+
+2. $\mathcal{L}^{-1}\left[\frac{s^2-\omega^2}{(s^2+\omega^2)^2}\right]=t\cos(\omega t)$. $\underline{\text{Hint}}$: $\frac{s^2-\omega^2}{(s^2+\omega^2)^2}=\frac{s}{s^2+\omega^2}\cdot\frac{s}{s^2+\omega^2}-\frac{\omega}{s^2+\omega^2}\cdot\frac{\omega}{s^2+\omega^2}$
+
+To show that $\mathcal{L}^{-1}\left[\frac{s^2-\omega^2}{(s^2+\omega^2)^2}\right]=t\cos(\omega t)$, we will use convolutions, the following hint: $\frac{s^2-\omega^2}{(s^2+\omega^2)^2}=\frac{s}{s^2+\omega^2}\cdot\frac{s}{s^2+\omega^2}-\frac{\omega}{s^2+\omega^2}\cdot\frac{\omega}{s^2+\omega^2}$, and the following trigonometric identities: $\cos(a)\cos(b)=\frac{1}{2}\cos(a+b)+\frac{1}{2}\cos(a-b)$ and $\sin(a)\sin(b)=\frac{1}{2}\cos(a-b)-\frac{1}{2}\cos(a+b)$.
+\begin{align*}
+\mathcal{L}^{-1}\left[\frac{s^2-\omega^2}{(s^2+\omega^2)^2}\right] &= \mathcal{L}^{-1}\left[\frac{s}{s^2+\omega^2}\cdot\frac{s}{s^2+\omega^2}-\frac{\omega}{s^2+\omega^2}\cdot\frac{\omega}{s^2+\omega^2}\right] \\
+&= \mathcal{L}^{-1}\left[\frac{s}{s^2+\omega^2}\cdot\frac{s}{s^2+\omega^2}\right]-\mathcal{L}^{-1}\left[\frac{\omega}{s^2+\omega^2}\cdot\frac{\omega}{s^2+\omega^2}\right] \\
+&= \int\limits^{t}_{0}\mathcal{L}^{-1}\left[\frac{s}{s^2+\omega^2}\right](\tau)\cdot\mathcal{L}^{-1}\left[\frac{s}{s^2+\omega^2}\right](t-\tau)d\tau-\int\limits^{t}_{0}\mathcal{L}^{-1}\left[\frac{\omega}{s^2+\omega^2}\right](\tau)\cdot\mathcal{L}^{-1}\left[\frac{\omega}{s^2+\omega^2}\right](t-\tau)d\tau \\
+&= \int\limits^{t}_0\cos(\omega\tau)\cos(\omega(t-\tau))d\tau-\int\limits^{t}_0\sin(\omega\tau)\sin(\omega(t-\tau))d\tau
+\end{align*}
+
+Using the above trigonometric identities these integral become $\frac{1}{2}\int\limits^{t}_{0}\cos(\omega\tau+\omega(t-\tau))d\tau+\frac{1}{2}\int\limits^{t}_{0}\cos(\omega\tau-\omega(t-\tau))d\tau-\frac{1}{2}\int\limits^{t}_{0}\cos(\omega\tau+\omega(t-\tau))d\tau + \frac{1}{2}\int\limits^{t}_{0}\cos(\omega\tau+\omega(t-\tau))d\tau$. Hence we can simplify this to
+
+\begin{align*}
+&= \int\limits^{t}_{0}\cos(\omega\tau+\omega(t-\tau))d\tau \\
+&= \int\limits^{t}_{0}\cos(\omega\tau+\omega t-\omega\tau)d\tau \\
+&= \int\limits^{t}_{0}\cos(\omega t)d\tau \\
+&= \cos(\omega t) \int\limits^{t}_{0} d\tau \\
+&= t\cos(\omega t)
+\end{align*}
+
+ Hence we have proven that $\mathcal{L}^{-1}\left[\frac{s^2-\omega^2}{(s^2+\omega^2)^2}\right]=t\cos(\omega t)$.
+
+**Exercise 4: Duhamel's integral.** Consider the IVP
+\begin{align}
+y''+4y &= f(t), \ y(0)=y'(0)=0,
+\end{align}
+
+where $f(t)$ is an unspecified continuous function.
+
+1. Determine the transfer function $W(s)$ of the IVP (2).
+
+In order to find the transfer function we must first take the Laplace transform of both sides, this results in the following equation $\mathcal{L}[y''+4y]=\mathcal{L}[f(t)]$. Using the linearity of the Laplace transform this becomes $\mathcal{L}[y'']+4\mathcal{L}[y]=\mathcal{L}[f(t)]$. If we let $F(s)=\mathcal{L}[f(t)]$ and $Y(s)=\mathcal{L}[y(t)]$, then the following equation becomes $s^2Y(s)-sy(0)-y'()+4Y(s)=F(s)$. After plugging in the initial conditions and isolating $Y(s)$ on the left hand side of the equation we obtain $Y(s)=\frac{1}{s^2+4}F(S)$. Thus as can be seen from the previous expression of $Y(s)$ the transfer function $W(s)$ of the IVP (2) is $W(S)=\frac{1}{s^2+4}$.
+
+2. Determine the unit impulse response function $w(t)$ of the IVP (2).
+
+To determine the unit impulse response function $w(t)$ of the IVP (2), we must take the inverse Laplace transform of the transfer function. $w(t)=\mathcal{L}^{-1}[W(s)]=\mathcal{L}^{-1}\left[\frac{1}{s^2+4}\right]=\mathcal{L}^{-1}\left[\frac{1}{2}\frac{2}{s^2+4}\right]=\frac{1}{2}\sin(2t)$. Hence the impulse response function of IVP (2) is $w(t)=\frac{1}{2}\sin(2t)$.
+
+3. Express the solution $y(t)$ of the IVP (2) as a convolution, for a general forcing function $f(t)$.
+
+To express the solution $y(t)$ of the IVP (2) as a convolution, for a general forcing function $f(t)$, we must use the general convolution formula $\int\limits^{t}_0f(t-\tau)g(\tau)d\tau$ for our given functions. Hence we can see that the solution $y(t)$ of the IVP (2) as a convolution for a general forcing function $f(t)$ is $\frac{1}{2}\int\limits^{t}_0\sin(2\tau)f(t-\tau)d\tau$.
+
+4. By using the convolution form of $y(t)$, calculate the solution of the IVP (2) for $f(t)=t$. \underline{\text{Hint}}: Integration by parts may be needed.
+
+Using the above expression for the solution of $y(t)$ in convolution form for $f(t)=t$ we must solve $\frac{1}{2}\int\limits^{t}_0\sin(2\tau)(t-\tau)d\tau$ in order to find the solution of IVP (2). Expanding the integral out using the distributive property we obtain $\frac{1}{2}t\int\limits^{t}_0\sin(2\tau)d\tau-\frac{1}{2}\int\limits^{t}_0\tau\sin(2\tau)d\tau$. Solving the first of these integrals we can see that $\frac{1}{2}t\int\limits^{t}_0\sin(2\tau)d\tau=\frac{-1}{4}t\cos(2\tau)|^{t}_0=\frac{t}{4}-\frac{t}{4}\cos(2t)$. Solving the second of these integrals requires integration by parts twice, using the tabular method we can see that $-\frac{1}{2}\int\limits^{t}_0\tau\sin(2\tau)d\tau=\frac{-1}{2}\left(\frac{-\tau}{2}\cos(2\tau)+\frac{1}{4}\sin(2\tau)\right)^{t}_{0}=\frac{t}{4}\cos(2t)-\frac{1}{8}\sin(2t)$. Adding the two integral solutions together we obtain the solution to IVP (2) which is $y(t)=\frac{t}{4}-\frac{1}{8}\sin(2t)$.

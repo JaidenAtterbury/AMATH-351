@@ -1,0 +1,181 @@
+---
+title: "AMATH 351 Homework 1"
+subtitle: "Seperable Equations"
+author: "Jaiden Atterbury"
+date: "2023-04-04"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Exercise 1.** Find the general solution for the following ODEs:
+
+1. $y' = cos(x)(y - 1)$ 
+$\\\\$
+Is the ODE seperable? Yes. Written in seperable form:
+\begin{align}
+\frac{dy}{y-1} &= cos(x)dx
+\end{align}
+Condition in which seperable form in (1) is valid:
+\begin{align*}
+y &\neq 1
+\end{align*}
+Now we must integrate both sides of the equation:
+\begin{align*}
+\int\frac{dy}{y-1} &= \int cos(x)dx + \text{C} \\
+\text{ln}|y-1| &= sin(x) + \text{C}
+\end{align*}
+where $C \in \mathbb{R}$. Now we must isolate $y$ to get an explicit general solution:
+\begin{align*}
+|y-1| &= e^\text{C}e^{sin(x)} \\
+y-1 &= \pm e^\text{C}e^{sin(x)} \\
+y &= \pm e^\text{C}e^{sin(x)} + 1
+\end{align*}
+If we let $D = \pm e^{\text{C}} \in \mathbb{R}$, then we get:
+\begin{align*}
+y &= De^{sin(x)} + 1
+\end{align*}
+Notice however that this is not our entire general solution as we had to remove $y = 1$ in order to proceed with the sepreable method. Instead our general solution is:
+\begin{align*}
+y(x) &= De^{sin(x)} + 1, \quad \text{if $y(x_0) \neq 1$} \\
+y(x) &= 1, \quad \text{if $y(x_0) = 1$}
+\end{align*}
+Notice that if our initial condition is $y(x_0) = y_0$, we can write both of these equations into one by noticing that:
+\begin{align*}
+y_0 &= De^{sin(x_0)}+1 \\
+y_0-1 &= De^{sin(x_0)} \\
+D &= \frac{y_0-1}{e^{sin(x_0)}}
+\end{align*}
+Therefore, no matter what initial condition we put in we will get the specific particular solution we are looking for, hence we can write our general solution as:
+\begin{align*}
+y(x) &= \frac{y_0-1}{e^{sin(x_0)}}e^{sin(x)} + 1
+\end{align*}
+where $x_0$ and $y_0$ are known values, making $\frac{y_0-1}{e^{sin(x_0)}}$ a constant.
+
+2. $y' = 1 + y^2$
+$\\$
+Hint: The result of one integral involves an inverse trigonometric function.
+$\\\\$
+Is the ODE seperable? Yes. Written in seperable form:
+\begin{align*}
+\frac{dy}{1+y^2} &= dt
+\end{align*}
+Now we must integrate both sides of the equation:
+\begin{align*}
+\int\frac{dy}{1+y^2} &= \int dt + \text{C} \\
+\text{arctan}(y) &= t + \text{C}
+\end{align*}
+where $C \in \mathbb{R}$. Now we must isolate $y$ to get an explicit general solution.
+\begin{align*}
+y &= tan(t + \text{C})
+\end{align*}
+Thus our general solution is:
+\begin{align*}
+y(t) &= tan(t + \text{C})
+\end{align*}
+However, since $tan(t)$ has infinite discontinuities at every odd multiple of $\frac{\pi}{2}$ and the range of $arctan(y)$ is $(\frac{-\pi}{2}, \frac{\pi}{2})$, it follows that the only solution curve that we care about is on the interval of $t \in (\frac{-\pi}{2} - \text{C}, \frac{\pi}{2} + \text{C})$. This will make more sense when seen with an actual initial condition.
+
+3. $y' = \frac{3t^2 + 4t + 2}{2(y - 1)}$
+$\\$
+Hint: After the solution procedure, and in order to find the formula for $y(t)$, you have to “complete the square”.
+$\\\\$
+Is the ODE seperable? Yes. Written in seperable form:
+\begin{align*}
+(y - 1)dy &= \frac{3}{2}t^2 + 2t + 1 
+\end{align*}
+Now we must integrate both sides of the equation:
+\begin{align*}
+\int (y - 1)dy &= \int \frac{3}{2}t^2 + 2t + 1 + \text{C}\\
+\frac{1}{2}y^2 - y &= \frac{1}{2}t^3 + t^2 + t + \text{C}
+\end{align*}
+where $C \in \mathbb{R}$. Now we must isolate $y$ to get an explicit general solution.
+\begin{align*}
+y^2 - 2y &= t^3 + 2t^2 + 2t +2\text{C}
+\end{align*}
+In order to go any farther, we must add $1$ to both sides to complete the square:
+\begin{align*}
+y^2 - 2y  + 1 &= t^3 + 2t^2 + 2t +2\text{C} + 1 \\
+(y - 1)^2 &= t^3 + 2t^2 + 2t +2\text{C} + 1 \\
+y - 1 &= \pm \sqrt{t^3 + 2t^2 + 2t +2\text{C} + 1} \\
+y &= \pm \sqrt{t^3 + 2t^2 + 2t +2\text{C} + 1} + 1
+\end{align*}
+If we let $D = 2C+1 \in \mathbb{R}$, then we get:
+\begin{align*}
+y &= \pm \sqrt{t^3 + 2t^2 + 2t + \text{D}} + 1
+\end{align*}
+Thus, our general solution for the ODE is:
+\begin{align*}
+y(t) &= \pm \sqrt{t^3 + 2t^2 + 2t + \text{D}} + 1
+\end{align*}
+
+4. $3\frac{dy}{dt} = ycos(t)$
+$\\\\$
+Is the ODE seperable? Yes. Written in seperable form:
+\begin{align}
+\frac{dy}{y} &= \frac{1}{3}cos(t)dt
+\end{align}
+Condition in which seperable form in (2) is valid:
+\begin{align*}
+y &\neq 0
+\end{align*}
+Now we must integrate both sides of the equation:
+\begin{align*}
+\int\frac{dy}{y} &= \int \frac{1}{3}cos(t)dt + \text{C} \\
+\text{ln}|y| &= \frac{1}{3}sin(t) + \text{C}
+\end{align*}
+where $C \in \mathbb{R}$. Now we must isolate $y$ to get an explicit general solution:
+\begin{align*}
+|y| &= e^\text{C}e^{\frac{1}{3}sin(t)} \\
+y &= \pm e^\text{C}e^{\frac{1}{3}sin(t)}
+\end{align*}
+If we let $D = \pm e^{\text{C}} \in \mathbb{R}$, then we get:
+\begin{align*}
+y &= De^{\frac{1}{3}sin(t)}
+\end{align*}
+Notice however that this is not our entire general solution as we had to remove $y = 0$ in order to proceed with the sepereable method. Instead our general solution is:
+\begin{align*}
+y(t) &= De^{\frac{1}{3}sin(t)}, \quad \text{if $y(t_0) \neq 1$} \\
+y(t) &= 1, \quad \text{if $y(t_0) = 1$}
+\end{align*}
+Notice that if our initial condition is $y(t_0) = y_0$, we can write both of these equations into one by noticing that:
+\begin{align*}
+y_0 &= De^{\frac{1}{3}sin(t_0)} \\
+D &= \frac{y_0}{e^{\frac{1}{3}sin(t_0)}}
+\end{align*}
+Therefore, no matter what initial condition we put in we will get the specific particular solution we are looking for, hence we can write our general solution as:
+\begin{align*}
+y(t) &= \frac{y_0}{e^{\frac{1}{3}sin(t_0)}}e^{\frac{1}{3}sin(t)}
+\end{align*}
+where $t_0$ and $y_0$ are known values, making $\frac{y_0}{e^{\frac{1}{3}sin(t_0)}}$ a constant.
+
+**Exercise 2.** Using the results of Exercise 1, solve the following IVPs:
+
+1. $y' = cos(x)(y - 1), \  y(0) = 1$
+$\\\\$
+As we found in **Exercise 1**, the general solution to the above ODE is $y(x) = \frac{y_0-1}{e^{sin(x_0)}}e^{sin(x)} + 1$. Furthermore, since we found this compact solution that covers all of our cases, all we have to do is plug in our initial conditions without solving for any constant. Hence the particular solution to this IVP is $y(x) = 1$.
+
+2. $y' = 1 + y^2, \ y(0) = 1$
+$\\\\$
+As we found in **Exercise 1**, the general solution to the above ODE is $y(t) = tan(t + C)$. We now must solve for our constant $C$:
+\begin{align*}
+1 &= tan(C) \\
+C &= arctan(1) \\
+C &= \frac{\pi}{4} \quad \text{(Since the range of $arctan(y)$ is $(\frac{-\pi}{2}, \frac{\pi}{2})$)}
+\end{align*}
+Thus our particular solution to the IVP is $y(t) = tan(t + \frac{\pi}{4})$. Since $tan(t)$ is infinitely discontinuous, once we get onto one branch of the function, we can't "leave" it. Thus the solution of this IVP is only valid on the interval of $x \in (\frac{-3\pi}{4}, \frac{\pi}{4})$.
+
+3. $y' = \frac{3t^2 + 4t + 2}{2(y - 1)}, \ y(0) = -1$
+$\\\\$
+As we found in **Exercise 1**, the general solution to the above ODE is $y(t) = \pm \sqrt{t^3 + 2t^2 + 2t + \text{D}} + 1$. We now must solve for our constant $C$:
+\begin{align*}
+-1 &= \pm \sqrt{0^3 + 2(0)^2 + 2(0) + D} + 1 \\
+-2 &= \pm \sqrt{0^3 + 2(0)^2 + 2(0) + D} \\
+D &= 4
+\end{align*}
+Hence the particular solution to this IVP is $y(t) = \pm \sqrt{t^3 + 2t^2 + 2t + 4} + 1$. However, notice that the initial only holds true for the negative branch, thus our particular solution is actually $y(t) = 1 - \sqrt{t^3 + 2t^2 + 2t + 4}$.
+
+4. $3\frac{dy}{dt} = ycos(t), \ y(1) = 0$
+$\\\\$
+As we found in **Exercise 1**, the general solution to the above ODE is $y(t) = \frac{y_0}{e^{\frac{1}{3}sin(t_0)}}e^{\frac{1}{3}sin(t)}$. Furthermore, since we found this compact solution that covers all of our cases, all we have to do is plug in our initial conditions without solving for any constant. Hence the particular solution to this IVP is $y(t) = 0$.
